@@ -1,8 +1,12 @@
 const {test,expect} = require('@playwright/test');
 
-test("#1: Validate Home Page", async ({page}) => {
+test.beforeEach(async({page}) => {
 
     await page.goto("https://anapioficeandfire.com/");
+
+})
+
+test("#1: Validate Home Page", async ({page}) => {
 
     await expect(page).toHaveTitle("An API of Ice And Fire");
 
@@ -15,8 +19,6 @@ test("#1: Validate Home Page", async ({page}) => {
 
 test("#2: Validate Author's Website Link", async ({page}) => {
 
-    await page.goto("https://anapioficeandfire.com/");
-
     // Validations:
     await expect(page.locator("//section/p/a[@href='https://joakimskoog.com/']")).toBeVisible();
     await page.locator("//section/p/a[@href='https://joakimskoog.com/']").click();
@@ -25,9 +27,6 @@ test("#2: Validate Author's Website Link", async ({page}) => {
 })
 
 test("#3: Validate the Sandox Section UI", async ({page}) => {
-
-    
-    await page.goto("https://anapioficeandfire.com/");
 
     // Validations:
     await expect(page.locator("//label[@for='url']")).toHaveText("https://anapioficeandfire.com/api/");
@@ -41,16 +40,12 @@ test("#3: Validate the Sandox Section UI", async ({page}) => {
 
 test("#4: Validate the Open Source Section UI", async ({page}) => {
 
-    await page.goto("https://anapioficeandfire.com/");
-
     // Validations:
     await expect(page.locator("//a[@href='https://github.com/joakimskoog/AnApiOfIceAndFire']")).toBeVisible();
     
 })
 
 test("#5: Validate the Documentation Section UI", async ({page}) => {
-
-    await page.goto("https://anapioficeandfire.com/");
 
     // Validations:
     await expect(page.locator("//a[@href='https://github.com/joakimskoog/AnApiOfIceAndFire/wiki']")).toBeVisible();

@@ -19,7 +19,9 @@ test("#2: Validate Author's Website Link", async ({page}) => {
 
     // Validations:
     await expect(page.locator("//section/p/a[@href='https://joakimskoog.com/']")).toBeVisible();
+    await page.locator("//section/p/a[@href='https://joakimskoog.com/']").click();
 
+    await expect(page.locator("//h1[@id='joakim-skog-lundell']")).toHaveText("Joakim Skog Lundell");
 })
 
 test("#3: Validate the Sandox Section UI", async ({page}) => {

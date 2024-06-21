@@ -1,16 +1,19 @@
 const {test,expect} = require('@playwright/test');
 
+import {HomePage} from "../Pages/Home-Page"; 
+
+
 test.beforeEach(async({page}) => {
 
-    await page.goto("https://anapioficeandfire.com/");
+    const homePage = new HomePage(page);
+
+    homePage.navToHomePage();
 
 })
 
-test("#1: Validate Home Page", async ({page}) => {
+test("#1: Validate Home Page @sanity", async ({page}) => {
 
     await expect(page).toHaveTitle("An API of Ice And Fire");
-
-    // Validations:
     await expect(page).toHaveURL("https://anapioficeandfire.com/");
 
     await expect(page.locator("//h1")).toHaveText("An API of Ice And Fire");
@@ -19,9 +22,12 @@ test("#1: Validate Home Page", async ({page}) => {
 
 test("#2: Validate Author's Website Link", async ({page}) => {
 
+    const homePage = new HomePage(page);
+
     // Validations:
     await expect(page.locator("//section/p/a[@href='https://joakimskoog.com/']")).toBeVisible();
-    await page.locator("//section/p/a[@href='https://joakimskoog.com/']").click();
+
+    homePage.clickAuthorsPageLink();
 
     await expect(page.locator("//h1[@id='joakim-skog-lundell']")).toHaveText("Joakim Skog Lundell");
 })
